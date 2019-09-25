@@ -5,6 +5,8 @@
 #include <mcheck.h>
 #define max_len 1024
 
+int i_count = 0;
+
 
 char** inp_arr(int number)
 {
@@ -40,8 +42,15 @@ void free_arr(char **arr, int number)
 int sort_arr(const void *arr1,const void *arr2)
 {
 	char *a = *(char **)arr1; 
-	char *b = *(char **)arr2; 
-	return strlen(b) - strlen(a);
+	char *b = *(char **)arr2;
+	if (strlen(b)>strlen(a))
+	{
+		i_count++;
+		return strlen(b)-strlen(a);
+	}
+	else{
+		return strlen(b)- strlen(a);
+	}
 }
 
 int biggest_str(char **arr, int number)
@@ -73,5 +82,6 @@ int main()
 	out_arr(arr, number);
 	biggest_str(arr, number);
 	free_arr(arr, number);
+	printf("\nКоличество перестановок:%d\n",i_count );
 	return 0;
 }
