@@ -5,28 +5,32 @@
 #include <mcheck.h>
 #define max_len 1024
 
-char** inp_arr(int count);
-void out_arr(char **arr, int count);
-void free_arr(char **arr, int count);
+char** inp_arr(int number);
+void out_arr(char **arr, int number);
+void free_arr(char **arr, int number);
+int sort_arr(const void *arr1, const void *arr2);
 
 int main()
 {	
-	char **mas = NULL; 
-	int count = 3;
+	char **arr = NULL;
+	int number;
+	printf("Введите количество строк:");
+	scanf("%d",&number);
 	mtrace();
-	mas = inp_arr(count);
-	out_arr(mas, count);
-	free_arr(mas, count);
-	printf("hello\n");
+	printf("Введите строки по одной\n");
+	arr = inp_arr(number);
+	qsort(arr, number, sizeof(char*),sort_arr);
+	out_arr(arr, number);
+	free_arr(arr, number);
 	return 0;
 }
 
-char** inp_arr(int count)
+char** inp_arr(int number)
 {
 	char buf[max_len];
 	char **arr;  
-	arr = (char **)malloc(sizeof(char *)*count);
-    for (int i = 0; i < count ; i++)
+	arr = (char **)malloc(sizeof(char *)*number);
+    for (int i = 0; i < number ; i++)
     {
         scanf("%s", buf); 
         arr[i] = (char *)malloc(sizeof(char)*strlen(buf)); 
@@ -35,19 +39,26 @@ char** inp_arr(int count)
     return arr; 
 }
 
-void out_arr(char **arr, int count)
+void out_arr(char **arr, int number)
 {
-    for (int i = 0; i < count ; i++)
+    for (int i = 0; i < number ; i++)
     {
-        printf("%s\n", arr[i]);
+        printf("\nStr#%d: %s Длина строки:%ld\n",i+1, arr[i],strlen(arr[i]));
     }
 }
 
-void free_arr(char **arr, int count)
+void free_arr(char **arr, int number)
 {
-	for (int i = 0; i < count; i++)
+	for (int i = 0; i < number; i++)
 	{
         free(arr[i]); 
     }
     free(arr); 
+}
+
+int sort_arr(const void *arr1,const void *arr2)
+{
+	char *a = *(char **)arr1; 
+	char *b = *(char **)arr2; 
+	return strlen(b) - strlen(a);
 }
