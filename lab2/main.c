@@ -5,25 +5,6 @@
 #include <mcheck.h>
 #define max_len 1024
 
-char** inp_arr(int number);
-void out_arr(char **arr, int number);
-void free_arr(char **arr, int number);
-int sort_arr(const void *arr1, const void *arr2);
-
-int main()
-{	
-	char **arr = NULL;
-	int number;
-	printf("Введите количество строк:");
-	scanf("%d",&number);
-	mtrace();
-	printf("Введите строки по одной\n");
-	arr = inp_arr(number);
-	qsort(arr, number, sizeof(char*),sort_arr);
-	out_arr(arr, number);
-	free_arr(arr, number);
-	return 0;
-}
 
 char** inp_arr(int number)
 {
@@ -61,4 +42,36 @@ int sort_arr(const void *arr1,const void *arr2)
 	char *a = *(char **)arr1; 
 	char *b = *(char **)arr2; 
 	return strlen(b) - strlen(a);
+}
+
+int biggest_str(char **arr, int number)
+{	
+	char *str=arr[0];
+	for (int i = 0; i < number; ++i)
+	{
+		if(strlen(arr[i])>strlen(str))
+		{
+			arr[i]>str;
+			str = arr[i];
+		}
+
+	}
+	printf("Большая строка:%s, её длина:%ld\n",str,strlen(str));
+}
+
+
+int main()
+{	
+	char **arr = NULL;
+	int number;
+	printf("Введите количество строк:");
+	scanf("%d",&number);
+	mtrace();
+	printf("Введите строки по одной\n");
+	arr = inp_arr(number);
+	qsort(arr, number, sizeof(char*),sort_arr);
+	out_arr(arr, number);
+	biggest_str(arr, number);
+	free_arr(arr, number);
+	return 0;
 }
