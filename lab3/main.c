@@ -41,7 +41,6 @@ int main()
 	printf("Введите количество деталей: \n");
 	scanf("%d",&count);
 	details** dt = (details**)malloc(sizeof(details*)*count);
-	details test;
 	for (int i = 0; i < count; i++)
 	{
 		dt[i] = (details*)malloc(sizeof(details));
