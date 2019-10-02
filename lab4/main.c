@@ -1,35 +1,43 @@
-#include<string.h>
 #include<stdlib.h>
 #include<stdio.h>
 #include<ctype.h>
+#include<string.h>
 #define N 50
+
+char* rena(const char* a, const char* b){
+    size_t len = strlen(a) + strlen(b);
+    char *ren = (char*)malloc(len * sizeof(char) + 1);
+    *ren = '\0';
+    return strcat(strcat(ren, a) ,b);
+}
 
 int main(int argc, char *argv[])
 {	
 	char temp_arr[N];
-	int k;
-
-	FILE *input;
-	if(argc != 2)
+	char *name = rena(argv[1], ".test");
+	FILE *input, *output;
+	if(argc != 3)
 	{
-		printf("Не было введено имя файла\n");
+		printf("Введите параметры для входа\n");
 		exit(1);
 	}
-	if ((input=fopen(argv[1], "r")) == NULL)
+	if ((input=fopen(argv[1], "rb")) == NULL)
 	{
 		printf("Не удается открыть входной файл\n");
-		exit(1);
+		exit(1);	
 	}
-	/*if (output=fopen(argv[2], "r") == NULL)
-	{
-		printf("Не удается открыть выходной файл\n");
-		exit(1);
-		}*/
+
+	output = fopen(name, "wb");
+
 	while(!feof(input)) 
 	{
 		fgets(temp_arr, N, input);
 		printf("%s",temp_arr);
+		fputs(temp_arr, output);
 	}
+	fputs("\n", output);
 	printf("\n");
+	fclose(input);
+	fclose(output);
 	return 0;
 }
