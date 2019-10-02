@@ -4,7 +4,8 @@
 #include<string.h>
 #define N 50
 
-char* rena(const char* a, const char* b){
+char* rena(const char* a, const char* b)
+{
     size_t len = strlen(a) + strlen(b);
     char *ren = (char*)malloc(len * sizeof(char) + 1);
     *ren = '\0';
@@ -29,11 +30,15 @@ int main(int argc, char *argv[])
 
 	output = fopen(name, "wb");
 
+
 	while(!feof(input)) 
 	{
 		fgets(temp_arr, N, input);
-		printf("%s",temp_arr);
-		fputs(temp_arr, output);
+		if((temp_arr[0]>=97 & temp_arr[0]<=122) || (temp_arr[0]>=65 & temp_arr[0]<=90))
+		{	
+			printf("%s",temp_arr);
+			fputs(temp_arr, output);
+		}
 	}
 	fputs("\n", output);
 	printf("\n");
