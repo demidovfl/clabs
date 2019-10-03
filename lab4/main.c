@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
 	}
 	fputs("\n", output);
 	printf("\n");
+	free(name);
 	fclose(input);
 	fclose(output);
 	return 0;
